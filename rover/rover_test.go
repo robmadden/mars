@@ -23,7 +23,7 @@ func TestRover(t *testing.T) {
 
 	g.Describe("New", func() {
 		g.It("Should create a new Rover with the specified position ", func() {
-			r := rover.New(10, 10, 0, 0, "N")
+			r := rover.New(0, 0, "N")
 
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -38,7 +38,7 @@ func TestRover(t *testing.T) {
 
 	g.Describe("Move('L')", func() {
 		g.It("it spins a Rover facing North to face West ", func() {
-			r := rover.New(10, 10, 0, 0, "N")
+			r := rover.New(0, 0, "N")
 			r.Move("L")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -46,7 +46,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it spins a Rover facing East to face North ", func() {
-			r := rover.New(10, 10, 0, 0, "E")
+			r := rover.New(0, 0, "E")
 			r.Move("L")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -54,7 +54,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it spins a Rover facing South to face East ", func() {
-			r := rover.New(10, 10, 0, 0, "S")
+			r := rover.New(0, 0, "S")
 			r.Move("L")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -62,7 +62,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it spins a Rover facing West to face South ", func() {
-			r := rover.New(10, 10, 0, 0, "W")
+			r := rover.New(0, 0, "W")
 			r.Move("L")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -72,7 +72,7 @@ func TestRover(t *testing.T) {
 
 	g.Describe("Move('R')", func() {
 		g.It("it spins a Rover facing North to face East ", func() {
-			r := rover.New(10, 10, 0, 0, "N")
+			r := rover.New(0, 0, "N")
 			r.Move("R")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -80,7 +80,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it spins a Rover facing East to face South ", func() {
-			r := rover.New(10, 10, 0, 0, "E")
+			r := rover.New(0, 0, "E")
 			r.Move("R")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -88,7 +88,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it spins a Rover facing South to face West ", func() {
-			r := rover.New(10, 10, 0, 0, "S")
+			r := rover.New(0, 0, "S")
 			r.Move("R")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -96,7 +96,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it spins a Rover facing West to face North ", func() {
-			r := rover.New(10, 10, 0, 0, "W")
+			r := rover.New(0, 0, "W")
 			r.Move("R")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(0)
@@ -105,72 +105,8 @@ func TestRover(t *testing.T) {
 	})
 
 	g.Describe("Move('M')", func() {
-		g.It("will not let a rover fall off the plateau from (0, 0, W)'", func() {
-			r := rover.New(10, 10, 0, 0, "W")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(0)
-			g.Assert(r.Position.Y).Equal(0)
-			g.Assert(r.Position.Cardinal).Equal("W")
-		})
-
-		g.It("will not let a rover fall off the plateau from (0, 0, S)'", func() {
-			r := rover.New(10, 10, 0, 0, "S")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(0)
-			g.Assert(r.Position.Y).Equal(0)
-			g.Assert(r.Position.Cardinal).Equal("S")
-		})
-
-		g.It("will not let a rover fall off the plateau from (0, Y, W)'", func() {
-			r := rover.New(10, 10, 0, 10, "W")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(0)
-			g.Assert(r.Position.Y).Equal(10)
-			g.Assert(r.Position.Cardinal).Equal("W")
-		})
-
-		g.It("will not let a rover fall off the plateau from (0, Y, N)'", func() {
-			r := rover.New(10, 10, 0, 10, "N")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(0)
-			g.Assert(r.Position.Y).Equal(10)
-			g.Assert(r.Position.Cardinal).Equal("N")
-		})
-
-		g.It("will not let a rover fall off the plateau from (X, 0, E)'", func() {
-			r := rover.New(10, 10, 10, 0, "E")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(10)
-			g.Assert(r.Position.Y).Equal(0)
-			g.Assert(r.Position.Cardinal).Equal("E")
-		})
-
-		g.It("will not let a rover fall off the plateau from (X, 0, S)'", func() {
-			r := rover.New(10, 10, 10, 0, "S")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(10)
-			g.Assert(r.Position.Y).Equal(0)
-			g.Assert(r.Position.Cardinal).Equal("S")
-		})
-
-		g.It("will not let a rover fall off the plateau from (X, Y, E)'", func() {
-			r := rover.New(10, 10, 10, 10, "E")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(10)
-			g.Assert(r.Position.Y).Equal(10)
-			g.Assert(r.Position.Cardinal).Equal("E")
-		})
-
-		g.It("will not let a rover fall off the plateau from (X, Y, N)'", func() {
-			r := rover.New(10, 10, 10, 10, "N")
-			r.Move("M")
-			g.Assert(r.Position.X).Equal(10)
-			g.Assert(r.Position.Y).Equal(10)
-			g.Assert(r.Position.Cardinal).Equal("N")
-		})
-
 		g.It("it maintains a heading of North and moves it forward one grid point ", func() {
-			r := rover.New(10, 10, 1, 1, "N")
+			r := rover.New(1, 1, "N")
 			r.Move("M")
 			g.Assert(r.Position.X).Equal(1)
 			g.Assert(r.Position.Y).Equal(2)
@@ -178,7 +114,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it maintains a heading of East and moves it forward one grid point ", func() {
-			r := rover.New(10, 10, 1, 1, "E")
+			r := rover.New(1, 1, "E")
 			r.Move("M")
 			g.Assert(r.Position.X).Equal(2)
 			g.Assert(r.Position.Y).Equal(1)
@@ -186,7 +122,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it maintains a heading of South and moves it forward one grid point ", func() {
-			r := rover.New(10, 10, 1, 1, "S")
+			r := rover.New(1, 1, "S")
 			r.Move("M")
 			g.Assert(r.Position.X).Equal(1)
 			g.Assert(r.Position.Y).Equal(0)
@@ -194,7 +130,7 @@ func TestRover(t *testing.T) {
 		})
 
 		g.It("it maintains a heading of West and moves it forward one grid point ", func() {
-			r := rover.New(10, 10, 1, 1, "W")
+			r := rover.New(1, 1, "W")
 			r.Move("M")
 			g.Assert(r.Position.X).Equal(0)
 			g.Assert(r.Position.Y).Equal(1)

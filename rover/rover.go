@@ -6,71 +6,81 @@ import (
 
 // This struct represents a rover
 type Rover struct {
-	plateauWidth  int
-	plateauHeight int
-	Position      *position.Position
+	Position *position.Position
 }
 
-func New(width int, height int, x int, y int, cardinal string) *Rover {
+// A Rover itself is dumb, it only knows it's location and
+// Has no concept of other things in it's environment
+func New(x int, y int, cardinal string) *Rover {
 	return &Rover{
-		plateauWidth:  width,
-		plateauHeight: height,
-		Position:      position.New(x, y, cardinal),
+		Position: position.New(x, y, cardinal),
 	}
 }
 
-func (r *Rover) Move(direction string) {
+func (r *Rover) Move(direction string) bool {
 	if direction == "L" {
-		r.rotateLeft()
+		return r.rotateLeft()
 	} else if direction == "R" {
-		r.rotateRight()
+		return r.rotateRight()
 	} else if direction == "M" {
-		r.maintain()
+		return r.maintain()
 	}
+
+	return false
 }
 
 // Given a cardinal direction, rotate 90 degrees "left" (counter clockwise)
-func (r *Rover) rotateLeft() {
+func (r *Rover) rotateLeft() bool {
 	if r.Position.Cardinal == "N" {
 		r.Position.Cardinal = "W"
+		return true
 	} else if r.Position.Cardinal == "E" {
 		r.Position.Cardinal = "N"
+		return true
 	} else if r.Position.Cardinal == "S" {
 		r.Position.Cardinal = "E"
+		return true
 	} else if r.Position.Cardinal == "W" {
 		r.Position.Cardinal = "S"
+		return true
 	}
+
+	return false
 }
 
 // Given a cardinal direction, rotate 90 degrees "right" (clockwise)
-func (r *Rover) rotateRight() {
+func (r *Rover) rotateRight() bool {
 	if r.Position.Cardinal == "N" {
 		r.Position.Cardinal = "E"
+		return true
 	} else if r.Position.Cardinal == "E" {
 		r.Position.Cardinal = "S"
+		return true
 	} else if r.Position.Cardinal == "S" {
 		r.Position.Cardinal = "W"
+		return true
 	} else if r.Position.Cardinal == "W" {
 		r.Position.Cardinal = "N"
+		return true
 	}
+
+	return false
 }
 
-func (r *Rover) maintain() {
+func (r *Rover) maintain() bool {
 	if r.Position.Cardinal == "N" {
-		if r.Position.Y < r.plateauHeight {
-			r.Position.Y++
-		}
+		r.Position.Y++
+		return true
 	} else if r.Position.Cardinal == "E" {
-		if r.Position.X < r.plateauWidth {
-			r.Position.X++
-		}
+		r.Position.X++
+		return true
 	} else if r.Position.Cardinal == "S" {
-		if r.Position.Y > 0 {
-			r.Position.Y--
-		}
+		r.Position.Y--
+		return true
 	} else if r.Position.Cardinal == "W" {
-		if r.Position.X > 0 {
-			r.Position.X--
-		}
+		r.Position.X--
+		return true
 	}
+
+	return false
 }

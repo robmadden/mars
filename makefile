@@ -14,6 +14,8 @@ test:
 	$(cd) position && $(go) test
 	$(cd) rover && $(go) test
 	$(cd) plateau && $(go) test
+	$(cd) simio && $(go) test
+	$(cd) simulation && $(go) test
 
 install:
 	$(go) install
