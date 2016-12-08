@@ -2,6 +2,10 @@ go=go
 cd=@cd
 
 build:
+	$(go) clean
+	$(cd) position && $(go) test
+	$(cd) rover && $(go) test
+	$(cd) plateau && $(go) test
 	$(go) build -o mars
 
 clean:
