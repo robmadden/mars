@@ -1,23 +1,19 @@
-all:
-	$(MAKE) clean && $(MAKE) build && $(MAKE) test && $(MAKE) install
+go=go
+cd=@cd
 
 build:
-	cd position && $(MAKE) build
-	cd rover && $(MAKE) build
-	cd plateau && $(MAKE) build
+	$(go) build -o mars
 
 clean:
-	cd position && $(MAKE) clean
-	cd rover && $(MAKE) clean
-	cd plateau && $(MAKE) clean
+	$(go) clean
 
-install:
-	cd position && $(MAKE) install
-	cd rover && $(MAKE) install
-	cd plateau && $(MAKE) install
+run:
+	$(go) run main.go
 
 test:
-	cd position && $(MAKE) test
-	cd rover && $(MAKE) test
-	cd plateau && $(MAKE) test
+	$(cd) position && $(go) test
+	$(cd) rover && $(go) test
+	$(cd) plateau && $(go) test
 
+install:
+	$(go) install
